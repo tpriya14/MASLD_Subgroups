@@ -34,7 +34,6 @@ sapply(all_pkgs, require, character.only = TRUE, quietly = TRUE)
   - `downstream_analyses.R`: Longitudinal risk, genomic, and medication analyses using `tidycmprsk`, `survival`, `survminer`, and `BranchGLM`.
   - `validation.R`: Subgroup assignment and reproducibility testing.
 - `results/`: Output directory for analysis results and figures.
-- `README.md`: This file.
 
 ## Description of code files
 
@@ -56,9 +55,8 @@ sapply(all_pkgs, require, character.only = TRUE, quietly = TRUE)
    - Execute scripts in the `scripts/` directory in the following order:
      1. `preprocessing.R`
      2. `lca_subgroup_identification.R`
-     3. `downstream_analyses.R`
-     4. `validation.R`
-     5. `visualizations.R`
+     3. `validation.R`
+     4. `downstream_analyses.R`
 
 3. **Output**:
    - Results (e.g., HRs, ORs, p-values) and figures will be saved in the `results/` directory.
