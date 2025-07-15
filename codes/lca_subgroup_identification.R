@@ -29,7 +29,7 @@ setwd("/MAYO_BIOBANK/")
 # Load Data
 # ---------
 # Load pre-processed dataset with baseline demographic and clinical variables.
-final_all <- read.delim("T_MAYO_BIOBNAK_Pre_Process_Case_CTRL_POOL_T16256_clinical_info_05_28.txt", 
+final_all <- read.delim("MCB_Data.txt", 
                         sep = "\t", header = TRUE)
 
 # Data Preparation
@@ -75,11 +75,11 @@ summary(step_both)
 
 # Define Variables for LCA
 # ------------------------
-# Selected based on stepwise regression results; justification should be provided in the manuscript.
+# Selected based on stepwise regression results
 vari_lca <- c("PATIENT_GENDER_NAME", "Obesity1", "Hyperlipidemia1", "MetS1", "Hypertension1", 
               "ALT_C", "AST_C", "BMI_C", "HDL_C", "Depression1", "Migraine1", "CKD1", "ALP_C")
 
-# Prepare LCA Data for 75% Dataset (100%)
+# Prepare LCA Data for 75% Dataset
 # ----------------------------------------
 dat_lca_100 <- LCA_MASLD_data_75[, vari_lca]
 
@@ -149,7 +149,6 @@ for (n in 2:n_end) {
 }
 
 # Save model performance results
-setwd("/MASLD_LCA_FOLD/MAYO_BIOBANK/Journal_Final_Pic")
 write.table(res_lca, "res_lca_100.csv", sep = "\t", row.names = FALSE, quote = FALSE)
 
 # Fit Final LCA Model with 5 Classes
@@ -161,16 +160,7 @@ lc51 <- poLCA(f_lca, data = dat_lca_100, nclass = 5, maxiter = 1000,
               probs.start = vprobs.start, graph = FALSE, calc.se = TRUE, verbose = FALSE)
 
 # Assign latent class clusters
-selected_data_100$LatentClassCluster <- lc51$predclass
-
-# Prepare Data for Summary Table
-# ------------------------------
-selected_data_100$BUN <- as.numeric(selected_data_100$BUN)
-selected_data_100$Fibrosis <- as.factor(selected_data_100$Fibrosis)
-selected_data_100$Cirrhosis <- as.factor(selected_data_100$Cirrhosis)
-selected_data_100$Transplant <- as.factor(selected_data_100$Transplant)
-selected_data_100$Steatohepatitis <- as.factor(selected_data_100$Steatohepatitis)
-selected_data_100$Hepatocellular <- as.factor(selected_data_100$Hepatocellular)
+LCA_MASLD_data_75$LatentClassCluster <- lc51$predclass
 
 # Define custom rendering for categorical variables
 my.render.cat <- function(x) {
@@ -178,39 +168,26 @@ my.render.cat <- function(x) {
 }
 
 # Create publication-ready summary table
-table_column <- selected_data_100[, -c(1:5, 7, 21, 23, 25, 27, 29)]
+table_column <- LCA_MASLD_data_75[, -c(1:5, 7, 21, 23, 25, 27, 29)]
 x <- table1(~ . | LatentClassCluster, data = table_column, overall = TRUE, 
             render.categorical = my.render.cat, topclass = "Rtable1-zebra")
 
 # Save summary table and clustered data
 tab1_df <- as.data.frame(x)
 write.table(tab1_df, "Bio_After_LCA_100.csv", sep = "\t", row.names = FALSE, quote = FALSE)
-write.table(selected_data_100, "T100_5_Tapestry_After_LCA_T2043_clinical_info_06_11.csv", 
+write.table(LCA_MASLD_data_75, "T100_5_Tapestry_After_LCA_T2043_clinical_info_06_11.csv", 
             sep = "\t", row.names = FALSE, quote = FALSE)
 
-# Fit and evaluate LCA models for 100% dataset to use the resutls as reference result
-# [Follow the same steps as for the 100% dataset, adjusting file names and variables as needed]
+# Follow the same steps as for the whole dataset. Fit and evaluate LCA models for 100% dataset to use the resutls as reference result
 
 # Perform statistical analysis and visualization of clinical variables and disease prevalence
 #          across subgroups in the MAYO Biobank dataset (Cohort 1A).
 
-# Load required libraries
-
-# Set working directory for output files
-# Ensure this directory exists and is writeable
-setwd("/MAYO_BIOBANK/Journal_Final_Pic/75")
-
-# Convert Subgroup to a factor with specified levels
+selected_data_75 <- LCA_MASLD_data_75
 # Levels ensure consistent ordering: Control, C1, C2, C3, C4, C5
 selected_data_75$Subgroup <- factor(selected_data_75$Subgroup, 
                                    levels = c("Control", "C1", "C2", "C3", "C4", "C5"))
 
-# Convert disease-related columns to factors for categorical analysis
-selected_data_75$Fibrosis <- as.factor(selected_data_75$Fibrosis)
-selected_data_75$Cirrhosis <- as.factor(selected_data_75$Cirrhosis)
-selected_data_75$Hepatocellular <- as.factor(selected_data_75$Hepatocellular)
-selected_data_75$Transplant <- as.factor(selected_data_75$Transplant)
-selected_data_75$Steatohepatitis <- as.factor(selected_data_75$Steatohepatitis)
 
 # Print column names to verify data structure
 colnames(selected_data_75)
