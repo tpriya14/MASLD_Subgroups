@@ -41,7 +41,7 @@ sapply(all_pkgs, require, character.only = TRUE, quietly = TRUE)
 1. **Setup**:
    - Ensure R version 4.2.2 is installed.
    - Install required packages as listed above.
-   - Place raw data in the `data/` directory (ensure compliance with data access restrictions).
+   - Place raw data in the `data/` directory.
 
 2. **Run Analyses**:
    - Execute scripts in the `scripts/` directory in the following order:
