@@ -5,7 +5,6 @@
 # the full dataset (100%) and a 75% training subset, with model performance evaluated using AIC, BIC, SABIC,
 # entropy, and likelihood ratio tests. Results are saved as publication-ready tables and datasets.
 
-# Author: [Tahmina Sultana Priya]
 
 # Load Required Packages
 # ----------------------
