@@ -9,25 +9,11 @@ lapply(all_pkgs, function(pkg) {
   }
 })
 
-# Set working directory (update this path to your actual directory)
-setwd("/MAYO_BIOBANK")
-
-# Create results directory if it doesn't exist
-dir.create("results", showWarnings = FALSE)
-
 # Read input data
-final_all <- read.delim("l_info_02_06.txt", sep = "\t", header = TRUE)
-
-# Select features for analysis
-feature <- final_all %>% dplyr::select(
-  AGE, PATIENT_GENDER, PATIENT_RACE_NAME, PATIENT_ETHNICITY_NAME, AVG_BMI,  # Sociodemographic and anthropometric
-  ALT, AST, GGT, ALP, bilirubin,                                           # Liver-related lab tests
-  A1C, GLUCOSE_FASTING, TRIGLYCERIDE, cholesterol, LDL, HDL, total_protein, # Other lab tests
-  OBESITY, HYPERLIPIDEMIA, METABOLIC_SYNDROME, HEART_PROB_CODE, DIABETES    # Comorbidities
-)
+final_all <- read.delim("MCB_Data.txt", sep = "\t", header = TRUE)
 
 # Assess missing data
-missing_data <- feature
+missing_data <- final_all 
 missing_values <- is.na(missing_data)
 percent_missing <- colMeans(missing_values) * 100
 missing_df <- sort(percent_missing, decreasing = TRUE)
@@ -174,5 +160,5 @@ final_all <- final_all %>% mutate(Age_C = case_when(
 summary(final_all)
 
 # Save processed dataset
-write.table(final_all, file = "T_MAYO_BIOBNAK_Pre_Process_Case_POOL_linical_info.txt", 
+write.table(final_all, file = "T_MAYO_BIOBNAK_Pre_Process_Case_POOL_clinical_info.txt", 
             sep = "\t", row.names = FALSE, col.names = TRUE, quote = FALSE)
