@@ -47,7 +47,7 @@ sapply(all_pkgs, require, character.only = TRUE, quietly = TRUE)
 ## Usage
 
 1. **Setup**:
-   - Ensure R version 4.2.2 is installed.
+   - R version 4.2.2 or any version >= 4.0 is installed.
    - Install required packages as listed above.
    - Place raw data in the `data/` directory.
 
