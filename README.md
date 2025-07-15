@@ -47,7 +47,7 @@ sapply(all_pkgs, require, character.only = TRUE, quietly = TRUE)
 2. **Run Analyses**:
    - Execute scripts in the `scripts/` directory in the following order:
      1. `preprocessing.R`
-     2. `subgroup_identification.R`
+     2. `lca_subgroup_identification.R`
      3. `downstream_analyses.R`
      4. `validation.R`
      5. `visualizations.R`
