@@ -28,8 +28,8 @@ sapply(all_pkgs, require, character.only = TRUE, quietly = TRUE)
 ## Repository Structure
 
 - `data/`: Placeholder for raw and processed datasets (not included due to privacy restrictions).
-- `scripts/`: R scripts for data preprocessing, subgroup identification, statistical analyses, and visualization.
-  - `preprocessing.R`: Data cleaning and harmonization using `dplyr`, `tidyr`, and `data.table`.
+- `codes/`: R scripts for data preprocessing, subgroup identification, statistical analyses, and visualization.
+  - `preprocessing.R`: Data cleaning using `dplyr`, `tidyr`, and `data.table`.
   - `subgroup_identification.R`: Latent class analysis and clustering using `poLCA` and `tidyLPA`.
   - `downstream_analyses.R`: Longitudinal risk, genomic, and medication analyses using `tidycmprsk`, `survival`, `survminer`, and `BranchGLM`.
   - `validation.R`: Subgroup assignment and reproducibility testing.
