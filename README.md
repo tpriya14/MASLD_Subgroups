@@ -33,7 +33,6 @@ sapply(all_pkgs, require, character.only = TRUE, quietly = TRUE)
   - `subgroup_identification.R`: Latent class analysis and clustering using `poLCA` and `tidyLPA`.
   - `downstream_analyses.R`: Longitudinal risk, genomic, and medication analyses using `tidycmprsk`, `survival`, `survminer`, and `BranchGLM`.
   - `validation.R`: Subgroup assignment and reproducibility testing.
-  - `visualizations.R`: Code for generating figures using `ggplot2`, `networkD3`, `scatterpie`, `corrplot`, `ggrepel`, and `scatterplot3d`.
 - `results/`: Output directory for analysis results and figures.
 - `README.md`: This file.
 
