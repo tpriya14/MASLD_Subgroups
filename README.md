@@ -36,7 +36,7 @@ sapply(all_pkgs, require, character.only = TRUE, quietly = TRUE)
 - `results/`: Output directory for analysis results and figures.
 - `README.md`: This file.
 
-# Description of code files
+## Description of code files
 
 | File name                                                     | Description                                               |
 |---------------------------------------------------------------|-----------------------------------------------------------|
