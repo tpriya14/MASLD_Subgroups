@@ -29,10 +29,10 @@ sapply(all_pkgs, require, character.only = TRUE, quietly = TRUE)
 
 - `data/`: Placeholder for raw and processed datasets (not included due to privacy restrictions).
 - `codes/`: R scripts for data preprocessing, subgroup identification, statistical analyses, and visualization.
-  - `preprocessing.R`: Data cleaning using `dplyr`, `tidyr`, and `data.table`.
-  - `subgroup_identification.R`: Latent class analysis and clustering using `poLCA` and `tidyLPA`.
-  - `downstream_analyses.R`: Longitudinal risk, genomic, and medication analyses using `tidycmprsk`, `survival`, `survminer`, and `BranchGLM`.
-  - `validation.R`: Subgroup assignment and reproducibility testing.
+  - `preprocessing.R`: Data preparation before clustering.
+  - `subgroup_identification.R`: Implementation of latent class analysis and subgroup identification.
+  - `downstream_analyses.R`: Subgroup specific longitudinal risk, genomic, and medication analyses.
+  - `validation.R`: Subgroup assignment and reproducibility testing in an independent dataset.
 - `results/`: Output directory for analysis results and figures.
 
 ## Description of code files
@@ -59,4 +59,4 @@ sapply(all_pkgs, require, character.only = TRUE, quietly = TRUE)
      4. `downstream_analyses.R`
 
 3. **Output**:
-   - Results (e.g., HRs, ORs, p-values) and figures will be saved in the `results/` directory.
+   - Results and figures will be saved in the `results/` directory.
