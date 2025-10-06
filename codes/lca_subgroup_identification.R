@@ -56,7 +56,7 @@ LCA_MASLD_data_75 <- selected_data_100[-test_index, ]
 # Prepare Control Data (MASLD == 0) for Feature Selection
 # -------------------------------------------------------
 LCA_CTRL_data <- feature[feature$MASLD == 0, ]
-selected_data_ctrl <- LCA_CTRL_data[, -c(1:5, 7:29, 44, 48, 49, 51, 61:65)]
+selected_data_ctrl <- LCA_CTRL_data
 selected_data_ctrl <- na.omit(selected_data_ctrl)
 
 # Combine Training and Control Data for Feature Selection
