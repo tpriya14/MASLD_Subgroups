@@ -35,13 +35,12 @@ final_all <- read.delim("MCB_Data.txt",
 # Data Preparation
 # ----------------
 # Remove unnecessary columns and filter for MASLD cases.
-feature <- final_all[, -c(11:34, 35, 36, 38, 40, 42, 44, 46, 48, 50, 51, 52, 53, 54, 56, 57, 58, 
-                          62, 65, 68, 71, 74:78, 93, 98, 103, 108)]
+feature <- final_all
 LCA_MASLD_data <- feature[feature$MASLD == 1, ]
 selected_data_100 <- na.omit(LCA_MASLD_data)  # Remove rows with missing values
 
 # Select variables for LCA and convert character columns to factors.
-LCA_data <- selected_data_100[, -c(1:5, 7:29, 44, 48, 49, 51, 61:65)]
+LCA_data <- selected_data_100
 character_columns <- sapply(LCA_data, is.character)
 LCA_data[, character_columns] <- lapply(LCA_data[, character_columns], as.factor)
 
