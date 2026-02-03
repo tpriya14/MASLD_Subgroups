@@ -1,8 +1,9 @@
 # =============================================
 # Probability-Based Membership Assignment
 # =============================================
-# This script assigns patients to latent classes based on probabilities
-# derived from a trained Latent Class Analysis (LCA) model.
+# This script assign a new patient to latent classes based on their posterior probabilities, 
+# which were calculated using the estimated class-conditional response probabilities 
+# for the selected indicator variables derived from development cohort. 
 #
 # Tasks:
 # - Assignment of MCB validation dataset
