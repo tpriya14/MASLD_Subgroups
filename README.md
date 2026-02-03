@@ -63,7 +63,7 @@ sapply(all_pkgs, require, character.only = TRUE, quietly = TRUE)
 
 ```
 .
-├── data/                           # Data directory (not included - see Data Availability)
+├── data/                           # Data directory (not included)
 │   ├── raw/                        # Raw datasets
 │   └── processed/                  # Processed datasets
 ├── codes/                          # Analysis scripts
