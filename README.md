@@ -59,20 +59,33 @@ Place your data files in the `data/` directory.
 Run the scripts according to the repository structure below:
 
 setwd("/path/to/MASLD_Subgroups")
+
 source("codes/preprocessing.R")
+
 source("codes/lca_subgroup_identification.R")
+
 source("codes/membership_validation/probability_based_assignment.R")
+
 source("codes/membership_validation/centroid_based_assignment.R")
+
 source("codes/membership_validation/core_points_based_assignment.R")
+
 source("codes/downstream_analysis/clinical_biomarker_analysis.R")
+
 source("codes/downstream_analysis/disease_progression_analysis.R")
+
 source("codes/downstream_analysis/genotype_analysis.R")
+
 source("codes/downstream_analysis/medication_analysis.R")
+
 source("codes/downstream_analysis/mre_analysis.R")
+
 source("codes/prs_analysis.R")
+
 source("codes/visualize_results.R")
+
 ```
-#### 📁 Repository Structure
+### 📁 Repository Structure
 ```
 .
 ├── data/                           # Data directory (not included)
