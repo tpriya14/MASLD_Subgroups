@@ -1,5 +1,6 @@
 ##############################################################
-# MRE Analysis Pipeline
+# MRE Analysis
+##############################################################
 # This script evaluates the distribution of MRE (magnetic resonance elastography) measurements 
 # across clinically defined subgroups in both development and validation cohorts.
 #
