@@ -24,8 +24,6 @@ invisible(lapply(required_packages, library, character.only = TRUE))
 
 setwd("/")
 
-# ------------------- Custom LCA Functions -------------------
-
 poLCA.vectorize <- function(probs) {
   classes <- nrow(probs[[1]])
   vecprobs <- unlist(lapply(probs, t))
