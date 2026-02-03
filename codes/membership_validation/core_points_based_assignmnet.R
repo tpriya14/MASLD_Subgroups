@@ -6,7 +6,7 @@
 # to the mean of each cluster's core points is calculated.
 # Each sample is then assigned to the cluster with the smallest distance.
 #
-# Tasks:
+# Objective:
 # - Assignment of MCB validation dataset
 # - Assignment of independent validation Tapestry dataset
 # - Model performance evaluation
