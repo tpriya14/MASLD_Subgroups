@@ -58,8 +58,8 @@ Place your data files in the `data/` directory.
 ### Step 4: Run Analysis Pipeline
 Run the scripts according to the repository structure below:
 
-setwd("/path/to/MASLD_Subgroups") 
-source("codes/preprocessing.R")
+setwd("/path/to/MASLD_Subgroups")<br>
+source("codes/preprocessing.R")<br>
 source("codes/lca_subgroup_identification.R")
 
 ## 📁 Repository Structure
