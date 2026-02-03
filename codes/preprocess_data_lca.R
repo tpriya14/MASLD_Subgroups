@@ -145,7 +145,7 @@ process_MASLD_dataset <- function(
   # ------------------- Save Processed Data -------------------
   write.table(final_all, output_file, sep = "\t", row.names = FALSE, quote = FALSE)
   
-  # ------------------- Optional Table 1 -------------------
+  # ------------------- Table 1 -------------------
   if (make_table1 && !is.null(table1_data) && !is.null(table1_output)) {
     my.render.cat <- function(x) {
       c("", sapply(stats.default(x), function(y) with(y, sprintf("%0.1f", PCT))))
