@@ -7,19 +7,6 @@ This repository contains the R code and documentation for the analysis of Metabo
 
 > **Note:** Data from the MCB and Tapestry cohorts are **not publicly available** due to privacy restrictions.
 
-
-## 📋 Table of Contents
-
-- [Overview](#overview)
-- [Study Design](#study-design)
-- [Installation](#installation)
-- [Repository Structure](#repository-structure)
-- [Usage](#usage)
-- [Analysis Pipeline](#analysis-pipeline)
-- [Data Availability](#data-availability)
-- [Citation](#citation)
-- [Contact](#contact)
-
 ## 🔬 Overview
 
 This repository contains the complete analytical framework for identifying clinically distinct MASLD subgroups through latent class analysis. The study integrates clinical, genomic, and longitudinal data to characterize disease heterogeneity and validate findings across independent cohorts.
