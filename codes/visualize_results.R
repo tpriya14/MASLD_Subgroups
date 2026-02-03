@@ -8,12 +8,12 @@
 #  - Intenal validation cohort (MCB 1B)
 #  - Independent validation cohort (Tapestry)
 #
-# Includes:
-# - Boxplots with statistical comparisons for continuous variables
-# - Grouped bar plots for disease prevalence
+# Objective:
+# - Create boxplots with statistical comparisons for continuous variables
+# - Create grouped bar plots for disease prevalence
 # - Statistical tests (Kruskal-Wallis, Dunn's test, Fisher's or Chi-square test)
-
 # =============================================
+
 # ------------------------------------------------------------
 # Load Required Packages
 # ------------------------------------------------------------
