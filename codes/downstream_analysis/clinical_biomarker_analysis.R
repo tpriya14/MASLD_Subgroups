@@ -1,6 +1,6 @@
-##############################################################
-# Follow-Up Clinical Measures Analysis Pipeline
-# 
+# =============================================
+# Follow-Up Clinical Outcome Analysis
+# =============================================
 # This script processes longitudinal clinical measurements (BMI, ALT, HDL, A1C, AST, ALP)
 # for patients in the MCB/Tapestry datasets.
 #
@@ -11,7 +11,7 @@
 #   and lines connecting paired observations.
 # - Performs two sided paired t-tests with Bonferroni correction
 # - Saves plots and statistics for all measures
-##############################################################
+=============================================
 
 # ------------------- Load Required Libraries -------------------
 required_packages <- c(
