@@ -11,7 +11,7 @@
 #   and lines connecting paired observations.
 # - Performs two sided paired t-tests with Bonferroni correction
 # - Saves plots and statistics for all measures
-=============================================
+# =============================================
 
 # ------------------- Load Required Libraries -------------------
 required_packages <- c(
