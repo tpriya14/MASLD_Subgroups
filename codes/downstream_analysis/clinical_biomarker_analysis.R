@@ -180,7 +180,6 @@ for(file in data_files) {
 }
 if(!data_found) stop("No patient dataset found!")
 
-# ------------------- Loop Over Measures -------------------
 all_stats <- list()
 
 for(measure in names(measure_config)) {
@@ -235,7 +234,6 @@ for(file in data_files) {
 }
 if(!data_found) stop("No patient dataset found!")
 
-# ------------------- Loop Over Measures -------------------
 all_stats <- list()
 
 for(measure in names(measure_config)) {
