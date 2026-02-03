@@ -61,9 +61,9 @@ Run the scripts according to the repository structure below:
 setwd("/path/to/MASLD_Subgroups")
 source("codes/preprocessing.R")
 source("codes/lca_subgroup_identification.R")
-source("codes/membership_methods/probability_based_assignment.R")
-source("codes/membership_methods/centroid_based_assignment.R")
-source("codes/membership_methods/core_points_based_assignment.R")
+source("codes/membership_validation/probability_based_assignment.R")
+source("codes/membership_validation/centroid_based_assignment.R")
+source("codes/membership_validation/core_points_based_assignment.R")
 source("codes/downstream_analysis/clinical_biomarker_analysis.R")
 source("codes/downstream_analysis/disease_progression_analysis.R")
 source("codes/downstream_analysis/genotype_analysis.R")
@@ -74,6 +74,7 @@ source("codes/visualize_results.R")
 ```
 #### 📁 Repository Structure
 ```
+.
 ├── data/                           # Data directory (not included)
 │   ├── raw/                        # Raw datasets
 │   └── processed/                  # Processed datasets
@@ -86,10 +87,10 @@ source("codes/visualize_results.R")
 │   │   └── core_points_based_assignment.R
 │   ├── downstream_analysis/        # Subgroup-specific analyses
 │   │   ├── clinical_biomarker_analysis.R     # Longitudinal clinical biomarker (ALT, AST etc.) outcomes analysis
-│   │   ├── disease_progression_analysis.R   # Longitudinal intrahepatic (MASH, fibrosis etc.) and extrahepatic (sleep disorder, renal failure etc.) complex disease risk analysis
-│   │   ├── genotype_analysis.R        # Genetic risk or protective variants analysis
-│   │   ├── medication_analysis.R           # Medication usage patterns, their association with diease outcome and impact on clinical biomarker analysis
-│   │   └── mre_analysis.R         # Magnetic Resonance Elastography (MRE) analysis
+│   │   ├── disease_progression_analysis.R    # Longitudinal intrahepatic (MASH, fibrosis etc.) and extrahepatic (sleep disorder, renal failure etc.) complex disease risk analysis
+│   │   ├── genotype_analysis.R               # Genetic risk or protective variants analysis
+│   │   ├── medication_analysis.R             # Medication usage patterns, their association with disease outcome and impact on clinical biomarker analysis
+│   │   └── mre_analysis.R                    # Magnetic Resonance Elastography (MRE) analysis
 │   ├── prs_analysis.R              # Polygenic risk score analysis
 │   └── visualize_results.R         # Figure generation
 └── results/                        # Output directory for results and figures
