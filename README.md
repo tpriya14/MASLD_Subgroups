@@ -57,31 +57,19 @@ Place your data files in the `data/` directory.
 
 ### Step 4: Run Analysis Pipeline
 Run the scripts according to the repository structure below:
-# Set working directory
+
 setwd("/path/to/MASLD_Subgroups")
-
-# Step 1: Data preprocessing
 source("codes/preprocessing.R")
-
-# Step 2: Subgroup identification
 source("codes/lca_subgroup_identification.R")
-
-# Step 3: Membership assignment methods
 source("codes/membership_methods/probability_based_assignment.R")
 source("codes/membership_methods/centroid_based_assignment.R")
 source("codes/membership_methods/core_points_based_assignment.R")
-
-# Step 4: Downstream analyses
 source("codes/downstream_analysis/clinical_biomarker_analysis.R")
 source("codes/downstream_analysis/disease_progression_analysis.R")
 source("codes/downstream_analysis/genotype_analysis.R")
 source("codes/downstream_analysis/medication_analysis.R")
 source("codes/downstream_analysis/mre_analysis.R")
-
-# Step 5: PRS analysis
 source("codes/prs_analysis.R")
-
-# Step 6: Generate visualizations
 source("codes/visualize_results.R")
 ```
 #### 📁 Repository Structure
