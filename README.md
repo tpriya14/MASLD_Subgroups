@@ -11,25 +11,22 @@ This repository contains the R code and documentation for the analysis of Metabo
 
 This repository contains the complete analytical framework for identifying clinically distinct MASLD subgroups through latent class analysis. The study integrates clinical, genomic, and longitudinal data to characterize disease heterogeneity and validate findings across independent cohorts.
 
-### Key Features
-
-- **Latent Class Analysis**: Advanced statistical methods for subgroup identification
-- **Multi-cohort Validation**: Cross-validation using MCB and Tapestry Study data
-- **Downstream Analyses**: Comprehensive evaluation of clinical outcomes, genomic risk, and medication responses
-- **Reproducibility**: Multiple membership assignment methods for new patient classification
-
 ## 🧬 Study Design
 
 The analysis is structured into four principal components:
 
-1. **Data Preparation**: Preprocessing and transformation of clinical variables
-2. **Subgroup Identification**: Latent class analysis to identify distinct MASLD phenotypes
+1. **Data Preparation**: Preprocessing and categorization of clinical variables according to the cutoff value for different biomarkers
+2. **Subgroup Identification**: Latent class analysis to identify distinct MASLD subgroups
 3. **Downstream Analyses**: Subgroup-specific evaluation of:
-   - Clinical outcomes and disease progression
-   - Polygenic risk scores (PRS)
-   - Medication utilization patterns
-   - Genomic associations
-4. **Validation**: Independent cohort validation and membership assignment methods
+   - Genetic variants analysis
+   - Intrahepatic and extrahepatic complex disease risk analysis
+   - Longitudinal biomarker analysis
+   - Treatment outcome analysis
+4. **Membership assignment methods**: To accurately map new patients to LCA-derived subgroups from the MCB development set, we benchmarked three membership assignment methods. 
+   - Centroid-based method
+   - Probability-based method
+   - Core points-based method
+5. **Validation**: Independent cohort validation with three membership assignment methods
 
 ## 💻 Installation
 
@@ -81,7 +78,7 @@ sapply(all_pkgs, require, character.only = TRUE, quietly = TRUE)
 │   │   ├── disease_progression.R   # Longitudinal disease tracking
 │   │   ├── genotyping.R            # Genomic associations
 │   │   ├── medication.R            # Medication usage patterns
-│   │   └── mre_analysis.R          # MR elastography analysis
+│   │   └── mre_analysis.R          # Magnetic Resonance Elastography (MRE) analysis
 │   ├── prs_analysis.R              # Polygenic risk score analysis
 │   └── visualize_results.R         # Figure generation
 └── results/                        # Output directory for results and figures
@@ -107,10 +104,10 @@ Implements latent class analysis:
 
 Three approaches for assigning new patients to subgroups:
 
-- **Probability-based**: Uses posterior probabilities from class-conditional response distributions
-- **Centroid-based**: Assigns patients based on distance to subgroup centroids
-- **Core points-based**: Utilizes representative core points from each subgroup
-
+- **Probability-based** [probability_based_method.R]: Computes Euclidean distances between patient feature vectors and subgroup centroids, assigning patients to the nearest subgroup with shoertest distance.
+- **Centroid-based** [probability_based_method.R]: Calculates posterior membership probabilities using class-conditional response distributions from the development cohort, assigning patients to the subgroup with highest probability.
+- **Core points-based** [probability_based_method.R]: Identifies representative core points within each subgroup (inspired by DBSCAN), then assigns new patients based on shortest distance to the mean feature values of these core points.
+  
 ### 4. Polygenic Risk Score Analysis (`prs_analysis.R`)
 
 Analyzes PRS distributions across subgroups using different SNP sets in both development and validation cohorts.
@@ -121,10 +118,10 @@ Comprehensive subgroup characterization:
 
 | Analysis | File | Description |
 |----------|------|-------------|
-| Clinical Outcomes | `clinical_outcome.R` | Evaluates disease severity and comorbidity patterns |
-| Disease Progression | `disease_progression.R` | Longitudinal tracking of liver disease progression |
-| Genomic Analysis | `genotyping.R` | Genetic variant associations with subgroups |
-| Medication Patterns | `medication.R` | Analyzes medication utilization by subgroup |
+| Clinical Outcomes | `clinical_outcome.R` | Analysis the follwoup laboratory outcome data |
+| Disease Progression | `disease_progression.R` | Longitudinal tracking of intrahepatic and extrahepatic disease progression |
+| Genetic variant Analysis | `genotyping.R` | Genotypic distribution of with subgroups with PNPLA3, MBOAT7, TM6SF2 etc. |
+| Medication Patterns | `medication.R` | Analyzes medication utilization and their association and impact on biomarker by subgroup |
 | MRE Analysis | `mre_analysis.R` | Magnetic resonance elastography findings |
 
 ### 6. Visualization (`visualize_results.R`)
