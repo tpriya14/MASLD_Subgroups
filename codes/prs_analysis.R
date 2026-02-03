@@ -1,13 +1,14 @@
-##############################################################
-# PRS Analysis Pipeline
+# =============================================
+# PRS Analysis
+# =============================================
 # This script analyzes the distribution of polygenic risk scores (PRS) based on different SNP sets across subgroups 
 # in both development and validation cohorts.
 #
 # Objectives:
 # - Evaluate PRS proportions in the MCB development cohort and validation cohort
 # - Evaluate PRS proportions in the Tapestry dataset with three assignment methods
-
-##############################################################
+#
+# =============================================
 
 # ------------------- Load Required Libraries -------------------
 required_packages <- c(
