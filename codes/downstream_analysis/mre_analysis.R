@@ -25,22 +25,17 @@ if(length(new_packages)) install.packages(new_packages)
 # Load all packages
 invisible(lapply(required_packages, library, character.only = TRUE))
 
-cat("========================================\n")
-cat("MRE Analysis Pipeline\n")
-cat("========================================\n\n")
+# ------------------- Header -------------------
+# MRE Analysis Pipeline
 
 # ------------------- Function to Process One Dataset -------------------
-
 process_mre_dataset <- function(input_file, output_prefix, id_var) {
   
-  cat("\nProcessing dataset:", input_file, "\n")
-  cat("----------------------------------------------\n")
-  
+  # ------------------- Load Data -------------------
   data <- read.delim(input_file, sep = "\t", header = TRUE)
-  
   MRE1 <- data
   
-  # Categorize stiffness values
+  # ------------------- Categorize Stiffness -------------------
   MRE1 <- MRE1 %>% mutate(
     fibro_pbm = case_when(
       impression_text < 2.5 ~ 'LS<2.5',
@@ -50,10 +45,11 @@ process_mre_dataset <- function(input_file, output_prefix, id_var) {
     )
   )
   
+  # ------------------- Merge Data -------------------
   merged_data <- merge(data, MRE1[, c(1,5,10,11)], 
                        by.x = id_var, by.y = id_var, all.x = TRUE)
   
-  # Summarize proportions
+  # ------------------- Summarize Proportions -------------------
   percentage_data <- merged_data %>%
     group_by(fibro_pbm, Subgroup) %>%
     summarise(Count = n(), .groups = "drop") %>%
@@ -69,7 +65,7 @@ process_mre_dataset <- function(input_file, output_prefix, id_var) {
     levels = c("LS<2.5", "LS(2.5 to 5)", "LS>5")
   )
   
-  # Create plot
+  # ------------------- Create Plot -------------------
   p <- ggplot(percentage_data, aes(x = fibro_pbm, y = Percentage, fill = Subgroup)) +
     geom_bar(stat = "identity", position = position_dodge(width = 1), width = 0.8) +
     geom_text(aes(label = paste0(Count, '(', round(Percentage, 1), '%)')),
@@ -91,29 +87,25 @@ process_mre_dataset <- function(input_file, output_prefix, id_var) {
       legend.text = element_text(size = 16, color = "black")
     )
   
+  # ------------------- Display Plot -------------------
   print(p)
   
-  # Save outputs
+  # ------------------- Save Outputs -------------------
   ggsave(paste0(output_prefix, "_MRE_plot.png"), plot = p, width = 7, height = 5, dpi = 500)
   ggsave(paste0(output_prefix, "_MRE_plot.pdf"), plot = p, width = 7, height = 5, dpi = 500)
-  
   write.csv(percentage_data, paste0(output_prefix, "_MRE_summary.csv"), row.names = FALSE)
   
   return(percentage_data)
 }
 
-# ------------------- Run for Two Datasets -------------------
-
-cat("Step 1: Running analysis for development cohort\n")
-
+# ------------------- Run Analysis for Development Cohort -------------------
 bio_results <- process_mre_dataset(
   input_file = "datasets/centroid_mcb_1A_1B_test_centroid_assignments.csv",
   output_prefix = "bio",
   id_var = "PATIENT_ID"
 )
 
-cat("\nStep 2: Running analysis for validation (Tapestry) cohort\n")
-
+# ------------------- Run Analysis for Validation Cohort -------------------
 tap_results <- process_mre_dataset(
   input_file = "datasets/centroid_mcb_test_centroid_assignments.csv",
   output_prefix = "tap",
@@ -121,9 +113,6 @@ tap_results <- process_mre_dataset(
 )
 
 # ------------------- Combine Results -------------------
-
-cat("\nStep 3: Generating combined analysis\n")
-
 combined <- rbind(bio_results, tap_results)
 
 combined_summary <- combined %>%
@@ -136,4 +125,3 @@ combined_summary <- combined %>%
 
 write.csv(combined_summary, "combined_MRE_summary.csv", row.names = FALSE)
 
-cat("\nAnalysis completed successfully!\n")
