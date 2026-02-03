@@ -16,16 +16,16 @@ This repository contains the complete analytical framework for identifying clini
 The analysis is structured into four principal components:
 
 1. **Data Preparation**: Preprocessing and categorization of clinical variables according to the cutoff value for different biomarkers
-2. **Subgroup Identification**: Latent class analysis to identify distinct MASLD subgroups
+2. **Subgroup Identification**: [Latent class analysis](https://pubmed.ncbi.nlm.nih.gov/37353681/) to identify distinct MASLD subgroups
 3. **Downstream Analyses**: Subgroup-specific evaluation of:
    - Genetic variants analysis
    - Intrahepatic and extrahepatic complex disease risk analysis
    - Longitudinal biomarker analysis
    - Treatment outcome analysis
 4. **Membership assignment methods**: To accurately map new patients to LCA-derived subgroups from the MCB development set, we benchmarked three membership assignment methods. 
-   - Centroid-based method
-   - Probability-based method
-   - Core points-based method
+   - Centroid-based: Computes Euclidean distances between patient feature vectors and subgroup centroids, assigning patients to the nearest subgroup.
+   - Probability-based: Calculates [posterior membership probabilities](https://github.com/dlinzer/poLCA) using class-conditional response distributions from the development cohort, assigning patients to the subgroup with highest probability.
+   - Core points-based: Identifies representative core members within each subgroup (inspired by [DBSCAN](https://github.com/mhahsler/dbscan?tab=readme-ov-file#ref-ester1996density)), then assigns new patients based on distance to the mean feature values of these core points.
 5. **Validation**: Independent cohort validation with three membership assignment methods
 
 ## 💻 Installation
@@ -37,27 +37,7 @@ The analysis is structured into four principal components:
 
 ### Required R Packages
 
-Install all required packages by running:
-
-```r
-# Core packages for data manipulation and visualization
-pkgs_overall <- c("data.table", "reshape2", "ggplot2", "ggrepel", "scales", "paletteer")
-
-# Latent class analysis and clustering
-pkgs_lca <- c("poLCA", "networkD3", "scatterpie", "corrplot", "tidyLPA")
-
-# Statistical modeling and survival analysis
-pkgs_additional <- c("olsrr", "dplyr", "tidyr", "purrr", "tidyfit", "table1", 
-                     "RcppArmadillo", "BranchGLM", "MASS", "tidycmprsk", 
-                     "survival", "survminer", "scatterplot3d", "mlr3misc")
-
-# Combine and install all packages
-all_pkgs <- unique(c(pkgs_overall, pkgs_lca, pkgs_additional))
-install.packages(all_pkgs)
-
-# Load packages
-sapply(all_pkgs, require, character.only = TRUE, quietly = TRUE)
-```
+Install all required packages by running the below provided scripts.
 
 ## 📁 Repository Structure
 
@@ -84,3 +64,7 @@ sapply(all_pkgs, require, character.only = TRUE, quietly = TRUE)
 └── results/                        # Output directory for results and figures
 ```
 
+**References:**
+Ester, M., Kriegel, H.-P., Sander, J. & Xu, X. A Density-Based Algorithm for Discovering Clusters in Large Spatial Databases with Noise. Second International Conference on Knowledge Discovery and Data Mining (KDD'96), 226-231 (1996).
+
+Zhou, W., et al. Latent class analysis-derived classification improves the cancer-specific death stratification of molecular subtyping in colorectal cancer. NPJ Precis Oncol 7, 60 (2023).
