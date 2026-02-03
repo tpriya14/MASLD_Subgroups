@@ -5,7 +5,7 @@
 # development cohort. For each new patinet, the Euclidean distance is calculated.
 # Each sample is then assigned to the cluster with the smallest distance.
 #
-# Tasks:
+# Objective:
 # - Assignment of MCB validation dataset
 # - Assignment of independent validation Tapestry dataset
 # - Model performance evaluation
