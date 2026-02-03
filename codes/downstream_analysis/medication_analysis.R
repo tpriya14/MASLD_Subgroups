@@ -16,7 +16,7 @@
 #   - Compare treatment responses across medication combinations
 #   - Conduct statistical testing with Bonferroni correction
 #
-##############################################################
+# =============================================
 # Load required libraries
 required_packages <- c(
   "data.table", "dplyr", "tidyr", "purrr", "stringr", "tibble", "lubridate",
