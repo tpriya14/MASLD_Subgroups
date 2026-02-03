@@ -155,17 +155,7 @@ for (i in 1:num_clusters) {
   knn_distances <- kNNdistances(train_cluster[, -1], k)
   elbow_point <- find_elbow_point(knn_distances)
   eps_auto <- knn_distances[elbow_point]
-
-  if (i == 1 || i == 3) {
-    eps_final <- 1.5
-  } else if (i == 2) {
-    eps_final <- 1.8
-  } else if (i == 4 || i == 5) {
-    eps_final <- 2.0
-  } else {
-    eps_final <- eps_auto
-  }
-
+  eps_final <- eps_auto
   cluster_eps[i] <- eps_final
 
   png(sprintf("validation_results/knn_plots/cluster_%d_knn_distances.png", i), width = 600, height = 400)
