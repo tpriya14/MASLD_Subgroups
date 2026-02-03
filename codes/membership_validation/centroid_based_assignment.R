@@ -1,8 +1,10 @@
 # =============================================
 # Centroid-Based Membership Assignment
 # =============================================
-# This script assigns patients to the identified subgroups from the development cohort 
-# using latent class analysis.
+# This script assigns new patients to identified subgroups using centroid.
+# For each new patinet, the Euclidean distance 
+# to the centroid of each cluster's core points is calculated.
+# Each sample is then assigned to the cluster with the smallest distance.
 #
 # Tasks:
 # - Assignment of MCB validation dataset
