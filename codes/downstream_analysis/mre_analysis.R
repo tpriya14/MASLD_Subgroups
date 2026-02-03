@@ -1,13 +1,13 @@
-##############################################################
+# =============================================
 # MRE Analysis
-##############################################################
+# =============================================
 # This script evaluates the distribution of MRE (magnetic resonance elastography) measurements 
 # across clinically defined subgroups in both development and validation cohorts.
 #
 # Objectives:
 # - Assess MRE proportions within subgroups in the MCB development cohort and its validation cohort
 # - Evaluate MRE distributions in the independent Tapestry dataset using centroid-based subgroup assignment methods
-##############################################################
+# =============================================
 
 # ------------------- Load Required Libraries -------------------
 required_packages <- c(
