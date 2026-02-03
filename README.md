@@ -26,7 +26,7 @@ The analysis is structured into four principal components:
    - Centroid-based: Computes Euclidean distances between patient feature vectors and subgroup centroids, assigning patients to the nearest subgroup with smallest distance.
    - Probability-based: Calculates [posterior membership probabilities](https://github.com/dlinzer/poLCA) using class-conditional response distributions from the development cohort, assigning patients to the subgroup with highest probability.
    - Core points-based: Identifies representative core members within each subgroup (inspired by [DBSCAN](https://github.com/mhahsler/dbscan?tab=readme-ov-file#ref-ester1996density)), then assigns new patients based on distance to the mean feature values of these core points.
-5. **Validation**: Independent cohort validation with three membership assignment methods
+   - Validation with three membership assignment methods
 
 ## How to Run
 ### Prerequisites
