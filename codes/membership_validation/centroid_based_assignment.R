@@ -1,9 +1,8 @@
 # =============================================
 # Centroid-Based Membership Assignment
 # =============================================
-# This script assigns new patients to identified subgroups using centroid.
-# For each new patinet, the Euclidean distance 
-# to the centroid of each cluster's core points is calculated.
+# This script assigns new patients to the precomputed subgroups using the centroids of the 
+# development cohort. For each new patinet, the Euclidean distance is calculated.
 # Each sample is then assigned to the cluster with the smallest distance.
 #
 # Tasks:
