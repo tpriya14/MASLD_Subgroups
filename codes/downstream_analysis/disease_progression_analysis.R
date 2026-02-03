@@ -10,7 +10,7 @@
 #   development and validation cohorts
 # - Evaluate Cox regression and cumulative incidence in the 
 #   Tapestry dataset using three assignment methods
-$ =============================================
+# =============================================
 
 # ---------------------- Load Libraries ---------------------- #
 required_packages <- c(
