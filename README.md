@@ -3,7 +3,10 @@
 [![R Version](https://img.shields.io/badge/R-%E2%89%A5%204.0-blue.svg)](https://www.r-project.org/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-A comprehensive analysis pipeline for identifying and characterizing subgroups of Metabolic Dysfunction-Associated Steatotic Liver Disease (MASLD) using latent class analysis and clinical data from the Mayo Clinic Biobank (MCB) and Tapestry Study cohorts.
+This repository contains the R code and documentation for the analysis of Metabolic Dysfunction-Associated Steatotic Liver Disease (MASLD) using data from the Mayo Clinic Biobank (MCB) and Tapestry Study cohorts. The study is structured into four principal sections: 1. Data preparation, 2. MASLD subgroup identification, 3. Subgroup-specific downstream analyses, and 4. validation of subgroups in new cohorts. 
+
+> **Note:** Data from the MCB and Tapestry cohorts are **not publicly available** due to privacy restrictions.
+
 
 ## 📋 Table of Contents
 
@@ -97,48 +100,6 @@ sapply(all_pkgs, require, character.only = TRUE, quietly = TRUE)
 └── results/                        # Output directory for results and figures
 ```
 
-## 🚀 Usage
-
-### Quick Start
-
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/yourusername/masld-analysis.git
-   cd masld-analysis
-   ```
-
-2. **Install dependencies**:
-   ```r
-   source("install_packages.R")
-   ```
-
-3. **Prepare your data**:
-   - Place raw data files in `data/raw/`
-   - Ensure data format matches the expected structure
-
-4. **Run the analysis pipeline**:
-   Execute scripts in the following order:
-
-   ```r
-   # Step 1: Data preprocessing
-   source("codes/preprocessing.R")
-   
-   # Step 2: Subgroup identification
-   source("codes/lca_subgroup_identification.R")
-   
-   # Step 3: Downstream analyses
-   source("codes/downstream_analyses/clinical_outcome.R")
-   source("codes/downstream_analyses/disease_progression.R")
-   source("codes/downstream_analyses/genotyping.R")
-   source("codes/downstream_analyses/medication.R")
-   
-   # Step 4: Visualization
-   source("codes/visualize_results.R")
-   ```
-
-5. **View results**:
-   - Figures and tables will be saved in `results/`
-
 ## 🔄 Analysis Pipeline
 
 ### 1. Data Preprocessing (`preprocessing.R`)
@@ -186,50 +147,5 @@ Generates publication-quality figures:
 - Bar plots showing disease prevalence
 - Statistical comparisons for MCB development, validation, and Tapestry cohorts
 
-## 📊 Data Availability
 
-**Important**: The datasets from the Mayo Clinic Biobank (MCB) and Tapestry Study cohorts are **not publicly available** due to privacy restrictions and patient confidentiality requirements.
 
-Researchers interested in accessing these data should contact:
-- Mayo Clinic Biobank: [contact information]
-- Tapestry Study: [contact information]
-
-Data access is subject to institutional review board approval and data use agreements.
-
-## 📝 Citation
-
-If you use this code or methodology in your research, please cite:
-
-```bibtex
-@article{masld2024,
-  title={Identification and Characterization of MASLD Subgroups through Latent Class Analysis},
-  author={[Authors]},
-  journal={[Journal]},
-  year={2024},
-  volume={[Volume]},
-  pages={[Pages]},
-  doi={[DOI]}
-}
-```
-
-## 👥 Contact
-
-For questions, issues, or collaboration inquiries:
-
-- **Primary Investigator**: [Name] - [email]
-- **Lead Analyst**: [Name] - [email]
-- **Issues**: Please use the [GitHub Issues](https://github.com/yourusername/masld-analysis/issues) page
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- Mayo Clinic Biobank participants and staff
-- Tapestry Study participants and research team
-- [Funding sources]
-
----
-
-**Last Updated**: February 2026
