@@ -25,13 +25,7 @@ if(length(new_packages)) install.packages(new_packages)
 # Load all packages
 invisible(lapply(required_packages, library, character.only = TRUE))
 
-# ------------------- Header -------------------
-# MRE Analysis Pipeline
-
-# ------------------- Function to Process One Dataset -------------------
 process_mre_dataset <- function(input_file, output_prefix, id_var) {
-  
-  # ------------------- Load Data -------------------
   data <- read.delim(input_file, sep = "\t", header = TRUE)
   MRE1 <- data
   
@@ -44,12 +38,10 @@ process_mre_dataset <- function(input_file, output_prefix, id_var) {
       TRUE ~ as.character(impression_text)
     )
   )
-  
-  # ------------------- Merge Data -------------------
+
   merged_data <- merge(data, MRE1[, c(1,5,10,11)], 
                        by.x = id_var, by.y = id_var, all.x = TRUE)
   
-  # ------------------- Summarize Proportions -------------------
   percentage_data <- merged_data %>%
     group_by(fibro_pbm, Subgroup) %>%
     summarise(Count = n(), .groups = "drop") %>%
@@ -86,11 +78,9 @@ process_mre_dataset <- function(input_file, output_prefix, id_var) {
       legend.title = element_blank(),
       legend.text = element_text(size = 16, color = "black")
     )
-  
-  # ------------------- Display Plot -------------------
+
   print(p)
   
-  # ------------------- Save Outputs -------------------
   ggsave(paste0(output_prefix, "_MRE_plot.png"), plot = p, width = 7, height = 5, dpi = 500)
   ggsave(paste0(output_prefix, "_MRE_plot.pdf"), plot = p, width = 7, height = 5, dpi = 500)
   write.csv(percentage_data, paste0(output_prefix, "_MRE_summary.csv"), row.names = FALSE)
