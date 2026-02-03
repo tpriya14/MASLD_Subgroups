@@ -34,7 +34,7 @@ run_visualization_pipeline <- function(dataset_name, input_file) {
   combined_data <- read.delim(input_file, sep = "\t", header = TRUE, stringsAsFactors = FALSE)
   combined_data$Subgroup <- factor(combined_data$Subgroup, levels = c("Control", "C1", "C2", "C3", "C4", "C5"))
   
-  # ------------------- Function: Process Continuous Variables -------------------
+  # ------------------- Process Variables -------------------
   process_variable <- function(data, variable, subgroup = "Subgroup", adjust_method = "bonferroni") {
     
     data_clean <- data %>% filter(!is.na(.data[[variable]]), !is.na(.data[[subgroup]]))
