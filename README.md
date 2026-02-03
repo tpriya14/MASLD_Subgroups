@@ -73,9 +73,7 @@ source("codes/prs_analysis.R")
 source("codes/visualize_results.R")
 ```
 #### 📁 Repository Structure
-To run the 
 ```
-.
 ├── data/                           # Data directory (not included)
 │   ├── raw/                        # Raw datasets
 │   └── processed/                  # Processed datasets
@@ -96,23 +94,7 @@ To run the
 │   └── visualize_results.R         # Figure generation
 └── results/                        # Output directory for results and figures
 ```
-```r
-# Set working directory
-setwd("/path/to/MASLD_Subgroups")
 
-# Run complete pipeline
-source("codes/preprocessing.R")
-source("codes/lca_subgroup_identification.R")
-source("codes/membership_methods/lca_subgroup_identification.R")
-source("codes/membership_methods/lca_subgroup_identification.R")
-source("codes/membership_methods/lca_subgroup_identification.R")
-source("codes/downstream_analyses/clinical_outcome.R")
-source("codes/downstream_analyses/clinical_outcome.R")
-source("codes/downstream_analyses/disease_progression_analysis.R")
-source("codes/downstream_analyses/genotype_analysis.R")
-source("codes/downstream_analyses/medication_analysis.R")
-source("codes/downstream_analyses/mre_analysis.R")
-```
 **References:**
 
 Ester, M., Kriegel, H.-P., Sander, J. & Xu, X. A Density-Based Algorithm for Discovering Clusters in Large Spatial Databases with Noise. Second International Conference on Knowledge Discovery and Data Mining (KDD'96), 226-231 (1996).
