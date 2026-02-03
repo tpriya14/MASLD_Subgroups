@@ -5,7 +5,7 @@
 # which were calculated using the estimated class-conditional response probabilities 
 # for the selected indicator variables derived from development cohort. 
 #
-# Tasks:
+# Objective:
 # - Assignment of MCB validation dataset
 # - Assignment of independent validation Tapestry dataset
 # - Model performance evaluation
