@@ -3,7 +3,7 @@
 # =============================================
 # This script creates a heatmap showing the distribution of
 # genetic risk variants across latent class clusters.
-#
+# =============================================
 # Objective:
 # - To evaluate how key MASLD-associated genetic variants (PNPLA3, TM6SF2, HSD17B13, GCKR, MBOAT7) are 
 #   distributed across latent subgroups.
