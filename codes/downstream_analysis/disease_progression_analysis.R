@@ -1,6 +1,6 @@
-##############################################################
+# =============================================
 # Disease Progression Analysis
-#
+# =============================================
 # This script analyzes intrahepatic and extrahepatic disease 
 # progression risk across subgroups using Cox proportional 
 # hazards models and cumulative incidence plots.
@@ -10,7 +10,7 @@
 #   development and validation cohorts
 # - Evaluate Cox regression and cumulative incidence in the 
 #   Tapestry dataset using three assignment methods
-##############################################################
+$ =============================================
 
 # ---------------------- Load Libraries ---------------------- #
 required_packages <- c(
