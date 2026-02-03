@@ -4,9 +4,11 @@
 # This script creates a heatmap showing the distribution of
 # genetic risk variants across latent class clusters.
 #
-# Visualizes:
-# - PNPLA3, TM6SF2, HSD17B13, GCKR, MBOAT7 genotypes
-# - Frequency across Control, C1, C2, C3, C4, C5
+# Objective:
+# - To evaluate how key MASLD-associated genetic variants (PNPLA3, TM6SF2, HSD17B13, GCKR, MBOAT7) are 
+#   distributed across latent subgroups.
+# - To provide a visual comparison of genotype frequencies 
+#   between Control and latent class groups (C1–C5).
 # =============================================
 
 # Load Required Packages
