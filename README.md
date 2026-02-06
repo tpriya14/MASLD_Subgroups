@@ -79,7 +79,7 @@ source("codes/lca_subgroup_identification.R")
 │   ├── downstream_analysis/        # Subgroup-specific analyses
 │   │   ├── clinical_biomarker_analysis.R     # Longitudinal clinical biomarker (ALT, AST etc.) outcomes analysis
 │   │   ├── disease_progression_analysis.R    # Longitudinal intrahepatic (MASH, fibrosis etc.) and extrahepatic (sleep disorder, renal failure etc.) complex disease risk analysis
-│   │   ├── genotype_analysis.R               # Genetic risk or protective variants analysis
+│   │   ├── genetic_variant_analysis.R               # Genetic variant analysis
 │   │   ├── medication_analysis.R             # Medication usage patterns, their association with disease outcome and impact on clinical biomarker analysis
 │   │   └── mre_analysis.R                    # Magnetic Resonance Elastography (MRE) analysis
 │   ├── prs_analysis.R              # Polygenic risk score analysis
