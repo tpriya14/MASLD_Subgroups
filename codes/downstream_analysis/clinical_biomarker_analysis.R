@@ -25,7 +25,7 @@ required_packages <- c(
 # Install missing packages and load all
 new_pkgs <- required_packages[!(required_packages %in% installed.packages()[,"Package"])]
 if(length(new_pkgs)) install.packages(new_pkgs)
-invisible(lapply(required_packages, library, character.only = TRUE))s
+invisible(lapply(required_packages, library, character.only = TRUE))
 
 # ------------------- Analysis Function -------------------
 # Function to process and plot paired measurements over years
