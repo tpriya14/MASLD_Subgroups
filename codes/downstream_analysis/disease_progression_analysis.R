@@ -14,7 +14,7 @@
 
 # ---------------------- Load Libraries ---------------------- #
 required_packages <- c(
-  "data.table", "dplyr", "tidyr", "purrr",
+  "data.table", "dplyr", "tidyr", "purrr", "broom",
   "ggplot2", "survival", "survminer", "tibble", "lubridate",
   "ggsurvfit", "tidycmprsk", "gtsummary", "readr",
   "caret", "randomForest", "Boruta", "mlbench",
@@ -24,7 +24,6 @@ required_packages <- c(
 
 new_packages <- required_packages[!(required_packages %in% installed.packages()[, "Package"])]
 if(length(new_packages)) install.packages(new_packages, dependencies = TRUE)
-
 invisible(lapply(required_packages, library, character.only = TRUE))
 
 # Function to prepare data, run Cox model, summarize, and plot survival
@@ -44,7 +43,7 @@ analyze_survival <- function(data, PATIENT_ID_col = "PATIENT_ID", status_col = "
     filter(Year1 >= 0 & Year1 <= max_year)
   
   # Cox proportional hazards model
-  fit <- coxph(Surv(Year1, !!sym(status_col)) ~ !!sym(subgroup_col), data = filtered_data)
+  fit <- coxph(as.formula(paste0("Surv(Year1, ", status_col, ") ~ ", subgroup_col)), data = filtered_data)
 
   summary(fit)
   cox_summary <- fit
