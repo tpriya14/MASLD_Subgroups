@@ -22,7 +22,7 @@ if(length(new_packages)) install.packages(new_packages)
 
 invisible(lapply(required_packages, library, character.only = TRUE))
 
-setwd("/")
+setwd("/datasets/")
 
 poLCA.vectorize <- function(probs) {
   classes <- nrow(probs[[1]])
