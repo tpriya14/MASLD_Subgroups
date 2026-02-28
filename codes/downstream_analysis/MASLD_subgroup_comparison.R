@@ -1,14 +1,12 @@
 # =============================================================================
 # MASLD Subgroup Comparison: Literature vs. LCA-Derived Clusters
 # =============================================================================
-# Description:
-#   Assigns patients to literature-defined MASLD subgroups using robust
-#   Euclidean distance from published medians/IQRs with appropriate unit conversion, 
-#   then computes centroid distances between those subgroups and 
-#   the LCA-derived clusters from this study. 
-#   Produces heatmap visualizations for two external comparators:
-#     1. Liu et al. (UK Biobank)  — 5 subgroups (PMID: 40640848)
-#     2. Raverdy et al. (ABOS Cohort)               — 3 subgroups (PMID: 39653777)
+# This script assigns patients to previously defined MASLD subgroups based on the shortest
+# Euclidean distance to published medians/IQRs (with appropriate unit conversion), 
+# then calculates centroid distances between these subgroups and the LCA-derived clusters from this study. 
+# Generates heatmap visualizations for two external comparator cohorts:
+# 1. Liu et al. (UK Biobank)  — 5 subgroups (PMID: 40640848)
+# 2. Raverdy et al. (ABOS Cohort)               — 3 subgroups (PMID: 39653777)
 # =============================================================================
 
 
@@ -22,7 +20,7 @@ required_packages <- c(
   "olsrr", "scatterplot3d", "MASS", "tidyfit", "feather",
   "RColorBrewer", "cluster"
 )
-
+# Install missing packages and load all
 new_pkgs <- required_packages[!(required_packages %in% installed.packages()[,"Package"])]
 if(length(new_pkgs)) install.packages(new_pkgs)
 invisible(lapply(required_packages, library, character.only = TRUE))
