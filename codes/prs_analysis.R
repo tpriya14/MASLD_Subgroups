@@ -121,7 +121,7 @@ disease_labels <- c(
   "PRS_NAFLD_DISCORD" = "MASLD PRS-Discordant",
   "PRS_NAFLD_CORD"   = "MASLD PRS-Concordant"
 )
-
+all_subgroups <- c("Control", "C1", "C2", "C3", "C4", "C5")
 summary_data$PRS <- factor(summary_data$PRS, levels = names(disease_labels))
 p_values <- long_data[, c(66,109:110)] %>%
   filter(Subgroup %in% all_subgroups) %>%
