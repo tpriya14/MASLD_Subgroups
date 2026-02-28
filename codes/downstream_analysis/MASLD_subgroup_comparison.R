@@ -48,7 +48,8 @@ cont_vars <- c("Age", "AVG_BMI", "ALT", "AST", "TRIGLYCERIDE", "LDL", "A1C")
 
 # ------------------- Define Liu Subgroup Parameters -------------------
 groups <- c("Dyslipidemia", "Younger", "Obesity", "Inflammatory", "Hepatotoxic")
-
+# medians_mat: Matrix of median values for each subgroup from the UK Biobank cohort
+# iqrs_mat: Matrix of interquartile ranges (IQRs) for each subgroup, as reported in Hong et al. 
 
 # ------------------- Define Assignment Function -------------------
 assign_subgroup_relative <- function(patient_row, medians_mat, iqrs_mat, groups) {
