@@ -35,6 +35,13 @@ test_data_25 <- read.delim(
   sep = "\t", header = TRUE
 )
 
+# ------------------- Define LCA Variables -------------------
+vari_lca <- c(
+  "LatentClassCluster", "PATIENT_GENDER_NAME", "Obesity1", "Hyperlipidemia1", 
+  "MetS1", "Hypertension1", "ALT_C", "AST_C", "BMI_C", "HDL_C", 
+  "Depression1", "Migraine1", "CKD1", "ALP_C"
+)
+
 test_data_mcb <- test_data_25[, vari_lca]
 char_cols <- sapply(test_data_mcb, is.character)
 test_data_mcb[, char_cols] <- lapply(test_data_mcb[, char_cols], as.factor)
@@ -50,13 +57,6 @@ final_all_tapestry <- tapestry_masld[, vari_lca]
 
 char_cols_tap <- sapply(final_all_tapestry, is.character)
 final_all_tapestry[, char_cols_tap] <- lapply(final_all_tapestry[, char_cols_tap], as.factor)
-
-# ------------------- Define LCA Variables -------------------
-vari_lca <- c(
-  "LatentClassCluster", "PATIENT_GENDER_NAME", "Obesity1", "Hyperlipidemia1", 
-  "MetS1", "Hypertension1", "ALT_C", "AST_C", "BMI_C", "HDL_C", 
-  "Depression1", "Migraine1", "CKD1", "ALP_C"
-)
 
 # ------------------- Prepare Data with Dummy Variables -------------------
 prepare_data_with_dummies <- function(data, vari_lca) {
