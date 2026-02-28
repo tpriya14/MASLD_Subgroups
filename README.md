@@ -82,6 +82,7 @@ source("codes/lca_subgroup_identification.R")
 │   │   ├── genetic_variant_analysis.R               # Genetic variant analysis
 │   │   ├── medication_analysis.R             # Medication usage patterns, their association with disease outcome and impact on clinical biomarker analysis
 │   │   └── mre_analysis.R                    # Magnetic Resonance Elastography (MRE) analysis
+│   │   └── MASLD_subgroup_comparison.R       # Comparison of LCA-derived subgroups and previously-defined subgroups 
 │   ├── prs_analysis.R              # Polygenic risk score analysis
 │   └── visualize_results.R         # Figure generation
 └── results/                        # Output directory for results and figures
