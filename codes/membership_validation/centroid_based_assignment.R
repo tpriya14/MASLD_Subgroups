@@ -28,6 +28,13 @@ test_data_25 <- read.delim(
   sep = "\t", header = TRUE
 )
 
+# ------------------- Define LCA Variables -------------------
+vari_lca <- c(
+  "LatentClassCluster", "PATIENT_GENDER_NAME", "Obesity1", "Hyperlipidemia1", 
+  "MetS1", "Hypertension1", "ALT_C", "AST_C", "BMI_C", "HDL_C", 
+  "Depression1", "Migraine1", "CKD1", "ALP_C"
+)
+
 # ------------------- Prepare Test Data for LCA Prediction -------------------
 test_data_mcb <- test_data_25[, vari_lca]
 char_cols <- sapply(test_data_mcb, is.character)
@@ -45,16 +52,8 @@ final_all_tapestry <- tapestry_masld[, vari_lca]
 char_cols_tap <- sapply(final_all_tapestry, is.character)
 final_all_tapestry[, char_cols_tap] <- lapply(final_all_tapestry[, char_cols_tap], as.factor)
 
-# ------------------- Define LCA Variables -------------------
-vari_lca <- c(
-  "LatentClassCluster", "PATIENT_GENDER_NAME", "Obesity1", "Hyperlipidemia1", 
-  "MetS1", "Hypertension1", "ALT_C", "AST_C", "BMI_C", "HDL_C", 
-  "Depression1", "Migraine1", "CKD1", "ALP_C"
-)
-
 # ------------------- Prepare Training Data -------------------
-dat_lca_75 <- selected_data_75[, vari_lca] %>%
-  filter(MASLD == 1)
+dat_lca_75 <- selected_data_75 %>% filter(MASLD == 1) %>% select(all_of(vari_lca))
 
 train_data <- dat_lca_75
 jacard_data_bio_75 <- train_data
@@ -247,7 +246,7 @@ write.table(
 )
 
 tapestry_data$LatentClassCluster_Centroid <- final_all_tapestry$LatentClassCluster_Centroid
-tapestry_data$Subgroup_Centroid <- paste0("C", final_all_tapestry$Subgroup_Centroid)
+tapestry_data$Subgroup_Centroid <- final_all_tapestry$Subgroup_Centroid
 
 write.table(
   tapestry_data,
