@@ -29,7 +29,7 @@ run_blrt <- FALSE
 # ------------------- Create Output Directories -------------------
 dir.create("datasets", showWarnings = FALSE)
 dir.create("datasets/lca_models", showWarnings = FALSE)
-out_path <- "/datasets/lca_models/"
+out_path <- "datasets/lca_models/"
 
 # ------------------- Load Main Dataset -------------------
 final_all <- read.delim(
