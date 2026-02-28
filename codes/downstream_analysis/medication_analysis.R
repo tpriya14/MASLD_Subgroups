@@ -17,12 +17,6 @@
 #   - Conduct statistical testing with Bonferroni correction
 #
 # =============================================
-# Load required libraries
-required_packages <- c(
-  "data.table", "dplyr", "tidyr", "purrr", "stringr", "tibble", "lubridate",
-  "ggplot2", "ggsci", "ggrepel", "ggpubr", "ggpattern", "viridis", "scales", "paletteer", "scatterpie", "networkD3", "corrplot", "scatterplot3d",
-  "caret", "randomForest", "MASS", "olsrr", "Boruta", "mlbench", "tidyfit", "survival", "ggsurvfit", "cmprsk", "tidycmprsk", "poLCA", "tidyLPA", "rstatix", "table1"
-)
 
 # ------------------- Load Required Libraries -------------------
 required_packages <- c(
@@ -53,7 +47,7 @@ med_files <- list(
 )
 
 all_med_data <- lapply(med_files, function(file) {
-  read.delim(file, sep=",", header=TRUE)
+  read.delim(file$file, sep=",", header=TRUE)
 }) %>% bind_rows()
 
 # ------------------- Load MCB Patient Dataset -------------------
@@ -203,7 +197,7 @@ create_forest_plot <- function(data, disease, adjusted_model, unadjusted_model, 
 
 # Define diseases and medication predictors
 diseases <- c("CLD", "CVD1", "CKD1", "Diabetes1", "Sleep1", "Depression1", "Transplant")
-medications <- c("Weight_Loss", "Antidiabetic+Insulin+Cholestorol")
+medications <- c("Weight_Loss", "Antidiabetic+Insulin+Cholesterol")
 
 all_results <- list()
 
@@ -472,8 +466,8 @@ result_ALT <- run_lab_pipeline(
   output_prefix = "ALT"
 )
 
-# AST
-result_AST <- run_lab_pipeline(
+# BMI
+result_BMI <- run_lab_pipeline(
   input_file = "BMI.csv",
   test_pattern = "BMI",
   output_prefix = "BMI"
