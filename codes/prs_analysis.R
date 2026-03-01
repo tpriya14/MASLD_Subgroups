@@ -11,7 +11,7 @@
 # =============================================
 # ------------------- Load Required Libraries -------------------
 required_packages <- c(
-  "ggplot2", "dplyr", "tidyr", "purrr", "stringr",
+  "ggplot2", "dplyr", "tidyr", "purrr", "stringr","broom",
   "data.table", "reshape2", "ggrepel", "scales",
   "paletteer", "poLCA", "networkD3", "scatterpie",
   "corrplot", "tidyLPA", "table1", "caret",
@@ -216,3 +216,182 @@ ggsave("bio_all_PRS_all_n_l_new_all.pdf", plot = p, width = 7, height = 7, dpi =
 write.csv(summary_data, "PRS_bio_propotion_results_all.csv", row.names = FALSE)
 
 write.csv(p_values, "p_value_PRS_bio_propotion_results_all.csv", row.names = FALSE)
+
+# =============================================
+# pPRS-Disease Association Analysis
+# =============================================
+
+PRS <- c("CORD_2_SNP_SUM", "DISCORD_3_SNP_SUM")
+cont_traits <- c("TRIGLYCERIDE")
+
+bin_traits <- c("Advanced_fibrosis", "HCC", "Hypertension", "CVD", "CKD", "T2D")
+
+# ------------------- Standardize PRS and Binarize Traits -------------------
+case_all_final <- case_all_final %>%
+  mutate(across(all_of(PRS), ~ scale(.)[,1])) %>%
+  mutate(across(all_of(bin_traits), ~ ifelse(. %in% c(1, "1", "Yes", "TRUE", "Type 2"), 1, 0)))
+
+case_all_final <- distinct(case_all_final %>% filter(!is.na(PATIENT_ID)), PATIENT_ID, Subgroup, .keep_all = TRUE)
+
+results <- case_all_final %>%
+  group_modify(~ {
+    df <- .x
+    
+    do.call(rbind, lapply(PRS, function(prs) {
+      
+      # ---- Continuous traits ----
+      cont_res <- do.call(rbind, lapply(cont_traits, function(trait) {
+        formula_str <- paste(trait, "~", prs)
+        
+        tryCatch({
+          fit <- lm(as.formula(formula_str), data = df)
+          broom::tidy(fit, conf.int = TRUE) %>%
+            filter(term == prs) %>%
+            mutate(
+              Trait = trait,
+              PRS = prs,
+              Type = "Continuous",
+              OR = NA_real_,
+              logOR = NA_real_,
+              CI_lower = conf.low,
+              CI_upper = conf.high
+            ) %>%
+            select(-conf.low, -conf.high)
+        }, error = function(e) {
+          NULL
+        })
+      }))
+      
+      # ---- Binary traits with standard GLM ----
+      bin_res <- do.call(rbind, lapply(bin_traits, function(trait) {
+        if(length(unique(df[[trait]])) < 2 || sum(!is.na(df[[trait]])) < 10) {
+          return(NULL)
+        }
+        
+        formula_str <- paste(trait, "~", prs)
+        
+        tryCatch({
+          fit <- glm(as.formula(formula_str), data = df, family = binomial())
+          
+          broom::tidy(fit, conf.int = TRUE) %>%
+            filter(term == prs) %>%
+            mutate(
+              Trait = trait,
+              PRS = prs,
+              Type = "Binary",
+              logOR = estimate,
+              OR = exp(estimate),
+              CI_lower = exp(conf.low),
+              CI_upper = exp(conf.high)
+            ) %>%
+            select(-conf.low, -conf.high)
+        }, error = function(e) {
+          message(paste("Error in", trait, "for", prs, ":", e$message))
+          NULL
+        })
+      }))
+      
+      rbind(cont_res, bin_res)
+    }))
+  }) %>%
+  ungroup()
+
+# ------------------- Prepare Forest Plot Data -------------------
+forest_data <- results %>%
+  filter(Type == "Binary", !is.na(OR)) %>%
+  mutate(
+    n_tests = n(),
+    p.value.bonf = p.value * n_tests,
+    p.value.bonf = ifelse(p.value.bonf > 1, 1, p.value.bonf),
+    Significant = case_when(
+      p.value < 0.001 ~ "***",
+      p.value < 0.01 ~ "**",
+      p.value < 0.05 ~ "*",
+      TRUE ~ ""
+    ),
+    Significance = ifelse(p.value < 0.05, "P < 0.05", "NS"),
+    PRS_label = case_when(
+      grepl("DISCORD", PRS) ~ "Discordant",
+      grepl("CORD", PRS) ~ "Concordant",
+      TRUE ~ PRS
+    ),
+    OR_text = sprintf("%.2f (%.2f-%.2f)", OR, CI_lower, CI_upper),
+    p_text = case_when(
+      p.value < 0.001 ~ "p < 0.001***",
+      p.value < 0.01 ~ sprintf("p = %.3f**", p.value),
+      p.value < 0.05 ~ sprintf("p = %.3f*", p.value),
+      TRUE ~ sprintf("p = %.3f", p.value)
+    ),
+    display_text = paste0(OR_text, "\n", p_text)
+  ) %>%
+  ungroup()
+
+forest_data$Trait <- factor(forest_data$Trait, 
+                            levels = c("Advanced_fibrosis", "HCC", "T2D", "Hypertension","CVD","CKD"),
+                            labels = c("Fibrosis/Cirrhosis", "HCC","T2D","Hypertension", "CVD","CKD"))
+
+max_ci <- forest_data %>%
+  summarise(max_upper = max(CI_upper, na.rm = TRUE)) %>%
+  pull(max_upper) %>%
+  max()
+
+# ------------------- Generate Forest Plot -------------------
+forest_plot_facet <- ggplot(forest_data, 
+                            aes(x = OR, y = Trait, 
+                                color = PRS_label, shape = PRS_label)) +
+  geom_vline(xintercept = 1, linetype = "dashed", color = "gray50", linewidth = 0.8) +
+  geom_errorbarh(aes(xmin = CI_lower, xmax = CI_upper), 
+                 height = 0.2, linewidth = 0.8, 
+                 position = position_dodge(width = 0.5)) +
+  geom_point(aes(alpha = Significance), size = 3.5, 
+             position = position_dodge(width = 0.5)) +
+  scale_color_manual(
+    values = c("Discordant" = "#D32F2F", "Concordant" = "#1976D2"),
+    name = "PRS Type"
+  ) +
+  scale_shape_manual(
+    values = c("Discordant" = 16, "Concordant" = 17),
+    name = "PRS Type"
+  ) +
+  geom_text(aes(label = Significant, x = CI_upper), 
+            hjust = -0.3, size = 4,
+            position = position_dodge(width = 0.5),
+            show.legend = FALSE) +
+  scale_alpha_manual(
+    values = c("P < 0.05" = 1, "NS" = 0.5)
+  ) +
+  scale_x_continuous(
+    trans = "log10",
+    breaks = c(0, 0.5, 1, 1.5, 2, 4, 8),
+    labels = c("0","0.5", "1", "1.5", "2", "4", "8")
+  ) +
+  coord_cartesian(clip = "off", xlim = c(0.5, max_ci * 1.8)) +
+  labs(
+    x = "Odds Ratio (95% CI)",
+    y = "",
+    title = "",
+    subtitle = ""
+  ) +
+  theme_bw() +
+  theme(
+    axis.text.y = element_text(size = 11, face = "bold", color = "black"),
+    axis.text.x = element_text(size = 11, color = "black"),
+    axis.title.x = element_text(size = 12, face = "bold", color = "black"),
+    plot.title = element_text(size = 14, face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(size = 10, hjust = 0.5),
+    strip.text = element_text(size = 12, face = "bold"),
+    legend.position = c(0.9, 0.6),
+    legend.box = "vertical",
+    legend.title = element_text(size = 10, face = "bold"),
+    legend.text = element_text(size = 9),
+    panel.grid.minor = element_blank(),
+    panel.grid.major.y = element_line(color = "gray90"),
+    plot.margin = unit(c(5, 120, 5, 5), "pt")
+  )
+
+print(forest_plot_facet)
+
+# ------------------- Save Forest Plot Outputs -------------------
+ggsave("forest_plot_all_subgroups_pPRS.png", forest_plot_facet, width = 10, height = 5, dpi = 300)
+ggsave("forest_plot_all_subgroups_pPRS.pdf", forest_plot_facet, width = 10, height = 5, dpi = 300)
+
